@@ -17,8 +17,13 @@
     <ul>
       {% for name in names %}
         <li>
-            {{ name[1] }}
-            <a href="/delete/{{ name[0] }}">❌</a>
+            <form action="/update/{{ name[0] }}" method="post">
+                <input name="name" value="{{ name[1]  }}" />
+                <input name="email" value="{{ name[2] }}"/>
+                <input name="phone" value="{{ name[3] }}"/>
+                <button type="submit">Editar</button>
+                <a href="/delete/{{ name[0] }}">❌</a>
+            </form>
         </li>
       {% endfor %}
     </ul>

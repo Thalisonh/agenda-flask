@@ -70,7 +70,21 @@ def delete(id):
     conn.close()
     return redirect('/')
 
+@app.route("/update/<id>", methods=['POST'])
+def update(id):
+    name = request.form.get('name')
+    email = request.form.get('email')
+    phone = request.form.get('phone')
 
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
+    cursor.execute(
+        'UPDATE contacts SET name = ?, email = ?, phone = ? WHERE id = ?;',(name, email, phone, id)
+    )
+
+    conn.commit()
+    conn.close()
+    return redirect('/')
 
 
 if __name__ == "__main__":
