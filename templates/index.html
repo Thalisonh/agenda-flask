@@ -5,27 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Agenda</title>
+
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/neumorphism-ui.css">
   </head>
-  <body>
-    <h1>Agenda de Contatos</h1>
-    <form action="/create" method="POST">
-      <input name="name" type="text" placeholder="Nome" />
-      <input name="email" type="email" placeholder="E-mail" />
-      <input name="phone" type="text" placeholder="Telefone" />
-      <button>Adicionar</button>
-    </form>
-    <ul>
-      {% for name in names %}
-        <li>
-            <form action="/update/{{ name[0] }}" method="post">
-                <input name="name" value="{{ name[1]  }}" />
-                <input name="email" value="{{ name[2] }}"/>
-                <input name="phone" value="{{ name[3] }}"/>
-                <button type="submit">Editar</button>
-                <a href="/delete/{{ name[0] }}">❌</a>
-            </form>
-        </li>
-      {% endfor %}
-    </ul>
+  <body class="dark-mode">
+    <div class="sul-box-raised-2 container">
+      <h1>Agenda de Contatos</h1>
+      <form action="/create" method="POST">
+        <input class="sul-text-field" name="name" type="text" placeholder="Nome" />
+        <input class="sul-text-field" name="email" type="email" placeholder="E-mail" />
+        <input class="sul-text-field" name="phone" type="text" placeholder="Telefone" />
+        <button class="sul-btn" type="submit">Adicionar</button>
+      </form>
+      <ul>
+        {% for name in names %}
+          <li>
+              <form action="/update/{{ name[0] }}" method="post">
+                  <input class="sul-text-field" name="name" value="{{ name[1]  }}" />
+                  <input class="sul-text-field" name="email" value="{{ name[2] }}"/>
+                  <input class="sul-text-field" name="phone" value="{{ name[3] }}"/>
+                  <button class="sul-btn" type="submit">Editar</button>
+                  <a href="/delete/{{ name[0] }}">❌</a>
+              </form>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
   </body>
 </html>

@@ -5,19 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda</title>
+
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="static/neumorphism-ui.css">
 </head>
-<body>
-    <h1>Registrar</h1>
-    <form action="/signup" method="post">
-        <hr>
-        <div>
-            <input name="name" placeholder="Nome">
-            <input name="email" placeholder="Email">
-            <input name="password" placeholder="Senha" type="password">
-        </div>
-        <hr>
-        <button type="submit">Registrar</button>
-    </form>
-    <a href="/login">Login</a>
+<body class="dark-mode">
+    <div class="sul-box-raised-2 container">
+        <h1>Registrar</h1>
+        <form class="flex-column" action="/signup" method="post">
+            <input class="sul-text-field" name="name" placeholder="Nome">
+            <input class="sul-text-field" name="email" placeholder="Email">
+            <input class="sul-text-field" name="password" placeholder="Senha" type="password">
+            <button class="sul-btn" type="submit">Registrar</button>
+        </form>
+        <a href="/login">Login</a>
+    </div>
 </body>
 </html>
