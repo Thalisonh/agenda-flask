@@ -25,7 +25,8 @@ CREATE TABLE IF NOT EXISTS contacts (
     image TEXT,
     user_id INTEGER,
     created_at TEXT,
-    updated_at TEXT
+    updated_at TEXT,
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
 """)
 
@@ -41,7 +42,8 @@ def index():
 
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
-    cursor.execute("SELECT * from contacts")
+    cursor.execute("SELECT * from contacts WHERE user_id = ?", (session['user_id'],))
+
     names = cursor.fetchall()
     conn.close()
     return render_template('index.html', names=names)
@@ -55,7 +57,7 @@ def create():
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     cursor.execute(
-        'INSERT INTO contacts (name,email,phone) VALUES (?,?,?)', (name, email, phone)
+        'INSERT INTO contacts (name,email,phone, user_id) VALUES (?,?,?,?)', (name, email, phone, session['user_id'])
     )
 
     conn.commit()
@@ -108,11 +110,12 @@ def login():
     user = cursor.fetchone()
     conn.close()
 
-    if not user or check_password_hash(user[3], password):
-        return redirect('/')
+    print('IF')
+
+    if not user or not check_password_hash(user[3], password):
+        return redirect('/login')
 
     session['user_id'] = user[0]
-
     return redirect('/')
 
 @app.route("/signup", methods=['GET', 'POST'])
