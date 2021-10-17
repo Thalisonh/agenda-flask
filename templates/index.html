@@ -16,7 +16,10 @@
     </form>
     <ul>
       {% for name in names %}
-        <li>{{ name[1] }}</li>
+        <li>
+            {{ name[1] }}
+            <a href="/delete/{{ name[0] }}">❌</a>
+        </li>
       {% endfor %}
     </ul>
   </body>
