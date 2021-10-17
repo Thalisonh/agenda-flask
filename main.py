@@ -36,6 +36,9 @@ app.config['SECRET_KEY'] = 'afd56456sad'
 
 @app.route("/")
 def index():
+    if 'user_id' not in session:
+        return redirect('/login')
+
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * from contacts")
@@ -138,6 +141,10 @@ def signup():
 
     return redirect('/login')
 
+@app.route("/logout")
+def logout():
+    session.pop('user_id', None)
+    return redirect('/')
 
 if __name__ == "__main__":
     app.run()
