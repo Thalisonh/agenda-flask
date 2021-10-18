@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 
 conn = sqlite3.connect('database.db')
@@ -62,6 +62,7 @@ def create():
 
     conn.commit()
     conn.close()
+    flash('Contato criado com sucesso', 'success')
     return redirect('/')
 
 @app.route("/delete/<id>")
@@ -75,6 +76,7 @@ def delete(id):
 
     conn.commit()
     conn.close()
+    flash('Contato deletado com sucesso', 'success')
     return redirect('/')
 
 @app.route("/update/<id>", methods=['POST'])
@@ -91,6 +93,7 @@ def update(id):
 
     conn.commit()
     conn.close()
+    flash('Contato alterado com sucesso', 'success')
     return redirect('/')
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -113,9 +116,11 @@ def login():
     print('IF')
 
     if not user or not check_password_hash(user[3], password):
+        flash('Login incorreto!', 'error')
         return redirect('/login')
 
     session['user_id'] = user[0]
+    flash('Bem vindo, ' + user[1], 'success')
     return redirect('/')
 
 @app.route("/signup", methods=['GET', 'POST'])
@@ -135,12 +140,14 @@ def signup():
 
     if user:
         conn.close()
+        flash('Email já existe', 'error')
         return redirect('/signup')
 
     cursor.execute('INSERT INTO users (name, email, password) VALUES (?,?,?);', (name, email, generate_password_hash(password, method='sha256')))
 
     conn.commit()
     conn.close()
+    flash('Usuário criado com sucesso', 'success')
 
     return redirect('/login')
 

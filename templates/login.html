@@ -19,5 +19,16 @@
         </form>
         <a href="/signup">Registrar</a>
     </div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="messages">
+            {% for class, message in messages %}
+            <div class="{{ class }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% endwith %}
 </body>
 </html>
